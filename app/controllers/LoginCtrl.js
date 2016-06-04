@@ -33,7 +33,7 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
       .authenticate($scope.account)
       .then(() => {
         $rootScope.isActive = true;
-        $location.path("/");
+        $location.path("/welcome");
         $scope.$apply();
       });
 
