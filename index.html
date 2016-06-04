@@ -6,31 +6,27 @@
   <link rel="stylesheet" href="lib/node_modules/materialize-css/dist/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
-<body>
+<body ng-app="WatchlistApp">
 
-   <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#.html">test</a></li>
-        <li><a href="#.html">test 2</a></li>
-        <li><a href="#.html">test 3</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <p>test</p>
-
+   <div ng-view></div>
 
   <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-
   <script type="text/javascript" src="lib/bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.8/angular-materialize.min.js"></script>
+
   <script type="text/javascript" src="lib/bower_components/angular-route/angular-route.min.js"></script>
 
-  <script type="text/javascript" src="lib/bower_components/firebase/firebase.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 
   <script type="text/javascript" src="lib/bower_components/angularfire/dist/angularfire.min.js"></script>
   <script type="text/javascript" src="app/app.js"></script>
+
+  <script type="text/javascript" src="app/factories/AuthFactory.js"></script>
+
+  <script type="text/javascript" src="app/controllers/LoginCtrl.js"></script>
+  <script type="text/javascript" src="app/controllers/SearchCtrl.js"></script>
+
+
 </body>
 </html>
