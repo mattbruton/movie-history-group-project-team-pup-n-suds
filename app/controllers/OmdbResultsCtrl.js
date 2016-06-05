@@ -3,17 +3,11 @@
 app.controller("OmdbResultsCtrl", function($scope, $rootScope, Search, DataFactory, $location){
 
   $scope.results = $rootScope.omdbSearchReturn;
+  
 
-  $scope.newMovie = {
-    Title: "",
-    Year: "",
-    Poster: "",
-    isWatched: false,
-    Rating: null
-  };
-
-  $scope.addNewMovie = function() {
-        DataFactory.postNewMovie($scope.newMovie)
+  $scope.addNewMovie = function(movie) {
+    console.log(movie);
+        DataFactory.postNewMovie(movie)
             .then(function successCallback(response) {
                 console.log(response);
                 $location.url("/welcome");
