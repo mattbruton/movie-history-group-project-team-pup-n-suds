@@ -2,26 +2,24 @@
 
 app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
 
-  var getMovies = function(movies) {
-    var user = AuthFactory.getUser();
-    return $q(function(resolve, reject) {
-        $http.get(`${firebaseURL}movies.json`)
-            .success(function(objectFromFirebase){
-                JSON.stringify({
-                    Title: movies.Title,
-                        Year: movies.Year,
-                        Poster: movies.Poster,
-                        uid: user.uid,
-                        isWatched: false,
-                        Rating: 0
-        })
-                    resolve(objectFromFirebase);
+  var getWatchList = function(array) {
+        var user = AuthFactory.getUser();
+        return $q(function(resolve, reject) {
+            $http.get(`${firebaseURL}movies.json`)
+                .success(function(moviesObject) {
+                    var movieCollection = moviesObject;
+                    Object.keys(movieCollection).forEach(function(movie) {
+                        if (movieCollection[movie].uid === user.uid) {
+                          array.push(movieCollection[movie]);
+                        }
+                    });            
+                    resolve(moviesObject);              
                 })
-                .error(function(error){
+                .error(function(error) {
                     reject(error);
                 });
         });
-    }
+    };
 
 
 
@@ -49,7 +47,7 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
 
   return {
     postNewMovie: postNewMovie,
-    getMovies: getMovies
+    getWatchList: getWatchList
   };
 
 });
