@@ -8,13 +8,13 @@ app.controller("SearchCtrl", function($scope, $rootScope, Search, $location){
     movie: "",
     year: "",
     type: ""
-  }
+  };
 
   $scope.searchOMDBFunction = function(){
     Search.getOMDBMovieList($scope.searchedMovie.movie, $scope.searchedMovie.year, $rootScope.omdbSearchReturn)
     .then(function() {
-      $location.url('/omdb-results')
-    })    
-  }
+      $location.url('/omdb-results');
+    });
+  };
 
 });
