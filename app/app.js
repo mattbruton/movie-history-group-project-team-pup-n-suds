@@ -1,7 +1,8 @@
 "use strict";
 
 var app = angular.module('WatchlistApp', ["ngRoute"])
-.constant("firebaseURL", "https://team-pup-n-suds-app.firebaseio.com/");
+.constant("firebaseURL", "https://team-pup-n-suds-app.firebaseio.com/")
+.constant("omdbURL", "https://omdbapi.com/?");
 
 let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
 
@@ -15,11 +16,28 @@ let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
 
 });
 
+app.directive('errSrc', function() {
+  return {
+    link: function(scope, element, attrs) {
+      element.bind('error', function() {
+        if (attrs.src != attrs.errSrc) {
+          attrs.$set('src', attrs.errSrc);
+        }
+      });
+    }
+  }
+});
+
 app.config(function($routeProvider) {
   $routeProvider.
     when('/welcome', {
       templateUrl: 'partials/initial-search-view.html',
       controller: "SearchCtrl",
+      resolve: {isAuth}
+    }).
+    when('/omdb-results', {
+      templateUrl: 'partials/omdb-search-display.html',
+      controller: "OmdbResultsCtrl",
       resolve: {isAuth}
     }).
     when('/login', {

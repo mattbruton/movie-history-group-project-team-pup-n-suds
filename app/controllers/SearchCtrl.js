@@ -1,11 +1,20 @@
 "use strict";
 
-app.controller("SearchCtrl", function($scope){
+app.controller("SearchCtrl", function($scope, $rootScope, Search, $location){
   
-  $scope.omdbTypes = [
-    {text: "Bing", url: "http://bing.com"},   
-    {text: "ZDNet", url: "http://zdnet.com"},
-    {text: "CNet", url: "http://cnet.com"}
-  ]; 
+  $rootScope.omdbSearchReturn = [];
+
+  $scope.searchedMovie = {
+    movie: "",
+    year: "",
+    type: ""
+  }
+
+  $scope.searchOMDBFunction = function(){
+    Search.getOMDBMovieList($scope.searchedMovie.movie, $scope.searchedMovie.year, $rootScope.omdbSearchReturn)
+    .then(function() {
+      $location.url('/omdb-results')
+    })    
+  }
 
 });
