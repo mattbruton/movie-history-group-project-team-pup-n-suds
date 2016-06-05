@@ -50,6 +50,11 @@ app.config(function($routeProvider) {
       controller: "WatchedCtrl",
       resolve: {isAuth}
     }).
+    when('/watch-list', {
+      templateUrl: 'partials/watchlist-view.html',
+      controller: "WatchListCtrl",
+      resolve: {isAuth}
+    }).
     when('/login', {
       templateUrl: 'partials/login.html',
       controller: "LoginCtrl"

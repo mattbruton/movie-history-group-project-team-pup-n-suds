@@ -3,9 +3,18 @@
 app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
 
   var getMovies = function(movies) {
+    var user = AuthFactory.getUser();
     return $q(function(resolve, reject) {
         $http.get(`${firebaseURL}movies.json`)
-                .success(function(objectFromFirebase){
+            .success(function(objectFromFirebase){
+                JSON.stringify({
+                    Title: movies.Title,
+                        Year: movies.Year,
+                        Poster: movies.Poster,
+                        uid: user.uid,
+                        isWatched: false,
+                        Rating: 0
+        })
                     resolve(objectFromFirebase);
                 })
                 .error(function(error){
@@ -39,7 +48,8 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
     };
 
   return {
-    postNewMovie: postNewMovie
+    postNewMovie: postNewMovie,
+    getMovies: getMovies
   };
 
 });
