@@ -30,6 +30,11 @@ app.directive('errSrc', function() {
 
 app.config(function($routeProvider) {
   $routeProvider.
+  when('/', {
+      templateUrl: 'partials/initial-search-view.html',
+      controller: "SearchCtrl",
+      resolve: {isAuth}
+    }).
     when('/welcome', {
       templateUrl: 'partials/initial-search-view.html',
       controller: "SearchCtrl",
@@ -38,6 +43,11 @@ app.config(function($routeProvider) {
     when('/omdb-results', {
       templateUrl: 'partials/omdb-search-display.html',
       controller: "OmdbResultsCtrl",
+      resolve: {isAuth}
+    }).
+    when('/watched', {
+      templateUrl: 'partials/watchlist-view.html',
+      controller: "WatchedCtrl",
       resolve: {isAuth}
     }).
     when('/login', {
