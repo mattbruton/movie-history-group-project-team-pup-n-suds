@@ -2,7 +2,17 @@
 
 app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
 
-  
+  var getMovies = function(movies) {
+    return $q(function(resolve, reject) {
+        $http.get(`${firebaseURL}movies.json`)
+                .success(function(objectFromFirebase){
+                    resolve(objectFromFirebase);
+                })
+                .error(function(error){
+                    reject(error);
+                });
+        });
+    }
 
 
 
