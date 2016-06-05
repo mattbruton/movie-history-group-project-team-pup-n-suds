@@ -8,9 +8,7 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
             $http.get(`${firebaseURL}movies.json`)
                 .success(function(moviesObject) {
                     var movieCollection = moviesObject;
-                    console.log(movieCollection);
                     Object.keys(movieCollection).forEach(function(movie) {
-                        console.log(movieCollection[movie]);
                         if (movieCollection[movie].uid === user.uid) {
                           array.push(movieCollection[movie]);
                         }

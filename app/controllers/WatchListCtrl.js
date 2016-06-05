@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("WatchListCtrl", function($scope, $rootScope, Search, $location, AuthFactory, DataFactory){
+app.controller("WatchListCtrl", function($scope, $rootScope, DataFactory){
 
    $rootScope.watchListReturn = [];
 
@@ -8,9 +8,7 @@ app.controller("WatchListCtrl", function($scope, $rootScope, Search, $location, 
 	
   $scope.displayWatchList = function() {
     DataFactory.getWatchList($rootScope.watchListReturn)
-
   };
-
 
   $scope.displayWatchList();
 
