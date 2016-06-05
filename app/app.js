@@ -46,8 +46,13 @@ app.config(function($routeProvider) {
       resolve: {isAuth}
     }).
     when('/watched', {
-      templateUrl: 'partials/watchlist-view.html',
+      templateUrl: 'partials/watched-view.html',
       controller: "WatchedCtrl",
+      resolve: {isAuth}
+    }).
+    when('/watch-list', {
+      templateUrl: 'partials/watchlist-view.html',
+      controller: "WatchListCtrl",
       resolve: {isAuth}
     }).
     when('/login', {
