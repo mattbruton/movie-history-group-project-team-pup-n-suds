@@ -13,17 +13,17 @@ app.factory("Search", function($q, $http, firebaseURL, omdbURL) {
           });
           resolve(movies);
           movies.forEach(function(movie) {
-            array.push(movie)
+            array.push(movie);
           });
         })
         .error(function(error) {
             reject(error);
         });
     });
-  }
+  };
 
   return {
     getOMDBMovieList: getOMDBMovieList
-  }
+  };
 
 });

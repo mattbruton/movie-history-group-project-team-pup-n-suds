@@ -18,13 +18,13 @@
         </div>
 
         <div class="col s10 offset-s1 card-info">
-          <p class="movie-title">{{result.Title}}</p>
+          <p class="movie-title" ng-value="newMovie.Title">{{result.Title}}</p>
         </div>
 
         <div class="card-reveal">
-          <h5>{{result.Title}}</h5>
-          <h5>{{result.Year}}</h5>
-          <p class="card-listadd"><a href="">Add to Watchlist</a></p>
+          <h5 ng-value="newMovie.Title">{{result.Title}}</h5>
+          <h5 ng-model="newMovie.Year">{{result.Year}}</h5>
+          <p class="card-listadd"><a href="" ng-click="addNewMovie()">Add to Watchlist</a></p>
           <p></p>
           <div class="card-title grey-text text-darken-4"><i class="material-icons right">X</i></div>
         </div>
