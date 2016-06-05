@@ -45,6 +45,11 @@ app.config(function($routeProvider) {
       controller: "OmdbResultsCtrl",
       resolve: {isAuth}
     }).
+    when('/watched', {
+      templateUrl: 'partials/watchlist-view.html',
+      controller: "WatchedCtrl",
+      resolve: {isAuth}
+    }).
     when('/login', {
       templateUrl: 'partials/login.html',
       controller: "LoginCtrl"
