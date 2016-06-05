@@ -16,8 +16,8 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
                     Year: newMovie.Year,
                     Poster: newMovie.Poster,
                     uid: user.uid,
-                    isWatched: newMovie.isWatched,
-                    Rating: newMovie.Rating
+                    isWatched: false,
+                    Rating: 0
                 })
             )
             .success(
