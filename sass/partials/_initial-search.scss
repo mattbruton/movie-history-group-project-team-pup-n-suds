@@ -16,10 +16,14 @@
   border-radius: 10px;
 }
 
-.initial-search-lower {
-  margin-top: 20px;
-}
+.search-display {
+  text-align: center;
+  margin-top: 2.5%;
+  background: rgba(215, 255, 255, .75);
 
-.search-type {
-  min-height: 90px;
+  img {
+    margin-top: 20px;
+    width: 200px;
+    height: 250px;
+  }
 }

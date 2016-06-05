@@ -1,0 +1,43 @@
+<div class="row search-display">
+  <div class="col s10 offset-s1">
+    <h1>Search Results</h1> 
+  </div>
+  <div class="col s10 offset-s1">
+    <div>
+    <ul>
+      <div class="row">
+      <li class="card col s4" ng-repeat="result in results">
+
+        <div class="card-image waves-effect waves-block waves-light col s8 offset-s2">
+          <img class="activator" ng-src={{result.Poster}} err-src="img/No_Image_Available.gif">
+        </div>
+
+        <div class="card-content">
+          <div class="card-title activator grey-text text-darken-4"><i class="material-icons"></i></div>
+        </div>
+
+        <div class="col s10 offset-s1">
+          <p>{{result.Title}}</p>
+          <p><a href="">Add to Watchlist</a></p>
+        </div>
+
+        <div class="card-reveal">
+          <h5>{{result.Title}}</h5>
+          <h5>{{result.Year}}</h5>
+          <p></p>
+          <div class="card-title grey-text text-darken-4"><i class="material-icons right">X</i></div>
+        </div>
+  </li>
+  </div>
+    <!--   <div class="col">
+      <li class="col s4 movie-card" ng-repeat="result in results">
+        <h5>{{result.Title}}</h5>
+        <img ng-src={{result.Poster}} err-src="img/No_Image_Available.gif">
+        <h5>{{result.Year}}</h5>
+      </li>
+    </div> -->
+    </ul>
+    </div>
+    
+  </div>
+</div>
