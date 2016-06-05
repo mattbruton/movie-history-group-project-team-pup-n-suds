@@ -30,6 +30,11 @@ app.directive('errSrc', function() {
 
 app.config(function($routeProvider) {
   $routeProvider.
+  when('/', {
+      templateUrl: 'partials/initial-search-view.html',
+      controller: "SearchCtrl",
+      resolve: {isAuth}
+    }).
     when('/welcome', {
       templateUrl: 'partials/initial-search-view.html',
       controller: "SearchCtrl",
