@@ -5,3 +5,22 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+img {
+    margin-top: 20px;
+    width: 200px;
+    height: 250px;
+  }
+
+.card-info {
+  padding: 0px 0px;
+  max-height: 125px;
+}
+
+.movie-title {
+  min-height: 75px;
+}
+
+.card-listadd {
+  font-size: 0.9em;
+}

@@ -16,26 +16,19 @@
           <div class="card-title activator grey-text text-darken-4"><i class="material-icons"></i></div>
         </div>
 
-        <div class="col s10 offset-s1">
-          <p>{{result.Title}}</p>
-          <p><a href="">Add to Watchlist</a></p>
+        <div class="col s10 offset-s1 card-info">
+          <p class="movie-title">{{result.Title}}</p>
         </div>
 
         <div class="card-reveal">
           <h5>{{result.Title}}</h5>
           <h5>{{result.Year}}</h5>
+          <p class="card-listadd"><a href="">Add to Watchlist</a></p>
           <p></p>
           <div class="card-title grey-text text-darken-4"><i class="material-icons right">X</i></div>
         </div>
   </li>
   </div>
-    <!--   <div class="col">
-      <li class="col s4 movie-card" ng-repeat="result in results">
-        <h5>{{result.Title}}</h5>
-        <img ng-src={{result.Poster}} err-src="img/No_Image_Available.gif">
-        <h5>{{result.Year}}</h5>
-      </li>
-    </div> -->
     </ul>
     </div>
     
