@@ -7,7 +7,7 @@
    <div class="col s10 offset-s1 card-holder">
       <ul>
          <div class="row">
-            <li class="card col s4" ng-repeat="movie in watchListReturn">
+            <li class="card col s4" ng-repeat="movie in movies">
                <div class="card-image waves-effect waves-block waves-light col s8 offset-s2">
                   <img class="activator" ng-src={{movie.Poster}} err-src="img/No_Image_Available.gif">
                </div>
@@ -23,6 +23,7 @@
                   </i></div>
                   <h5>{{movie.Title}}</h5>
                   <h5>{{movie.Year}}</h5>
+                  <button class="btn" id={{movie.id}}>Rate this Movie</button>
                </div>
             </li>
          </div>

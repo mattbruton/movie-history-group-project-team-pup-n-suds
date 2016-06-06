@@ -9,20 +9,20 @@ app.factory("AuthFactory", function(firebaseURL) {
       Determine if the client is authenticated
      */
 
-    isAuthenticated () {
+    isAuthenticated() {
       let authData = ref.getAuth();
       return (authData) ? true : false;
     },
 
-    getUser () {
+    getUser() {
       return currentUserData;
     },
 
     /*
       Authenticate the client via Firebase
      */
-     
-    authenticate (credentials) {
+
+    authenticate(credentials) {
       return new Promise((resolve, reject) => {
         ref.authWithPassword({
           "email": credentials.email,
@@ -42,9 +42,11 @@ app.factory("AuthFactory", function(firebaseURL) {
     /*
       Store each Firebase user's id in the `users` collection
      */
-     
-    storeUser (authData) {
-      let stringifiedUser = JSON.stringify({ uid: authData.uid });
+
+    storeUser(authData) {
+      let stringifiedUser = JSON.stringify({
+        uid: authData.uid
+      });
 
       return new Promise((resolve, reject) => {
         $http

@@ -1,7 +1,7 @@
 "use strict";
 
-app.controller("SearchCtrl", function($scope, $rootScope, Search, $location){
-  
+app.controller("SearchCtrl", function($scope, $rootScope, Search, $location) {
+
   $rootScope.omdbSearchReturn = [];
 
   $scope.searchedMovie = {
@@ -10,11 +10,11 @@ app.controller("SearchCtrl", function($scope, $rootScope, Search, $location){
     type: ""
   };
 
-  $scope.searchOMDBFunction = function(){
+  $scope.searchOMDBFunction = function() {
     Search.getOMDBMovieList($scope.searchedMovie.movie, $scope.searchedMovie.year, $rootScope.omdbSearchReturn)
-    .then(function() {
-      $location.url('/omdb-results');
-    });
+      .then(function() {
+        $location.url('/omdb-results');
+      });
   };
 
 });

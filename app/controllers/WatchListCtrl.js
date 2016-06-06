@@ -1,13 +1,14 @@
 "use strict";
 
-app.controller("WatchListCtrl", function($scope, $rootScope, DataFactory){
+app.controller("WatchListCtrl", function($scope, DataFactory, AuthFactory) {
 
-   $rootScope.watchListReturn = [];
+  $scope.movies = [];
 
-	$scope.movies = [];
-	
   $scope.displayWatchList = function() {
-    DataFactory.getWatchList($rootScope.watchListReturn)
+    DataFactory.getWatchList().then(function(data) {
+      $scope.movies = data;
+      console.log($scope.movies);
+    });
   };
 
   $scope.displayWatchList();
