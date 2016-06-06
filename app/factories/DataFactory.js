@@ -10,7 +10,28 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
         .success(function(moviesObject) {
           var movieCollection = moviesObject;
           Object.keys(movieCollection).forEach(function(movie) {
-            if (movieCollection[movie].uid === user.uid) {
+            if (movieCollection[movie].uid === user.uid && movieCollection[movie].Rating < 1) {
+              movieCollection[movie].id = movie;
+              array.push(movieCollection[movie]);
+            }
+          });
+          resolve(array);
+        })
+        .error(function(error) {
+          reject(error);
+        });
+    });
+  };
+
+let getWatchedList = function() {
+  let array = [];
+    var user = AuthFactory.getUser();
+    return $q(function(resolve, reject) {
+      $http.get(`${firebaseURL}movies.json`)
+        .success(function(moviesObject) {
+          var movieCollection = moviesObject;
+          Object.keys(movieCollection).forEach(function(movie) {
+            if (movieCollection[movie].uid === user.uid && movieCollection[movie].Rating > 0) {
               movieCollection[movie].id = movie;
               array.push(movieCollection[movie]);
             }
@@ -51,7 +72,8 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
 
   return {
     postNewMovie: postNewMovie,
-    getWatchList: getWatchList
+    getWatchList: getWatchList,
+    getWatchedList: getWatchedList
   };
 
 });
