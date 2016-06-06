@@ -17,7 +17,7 @@ app.factory("Search", function($q, $http, firebaseURL, omdbURL) {
           });
         })
         .error(function(error) {
-            reject(error);
+          reject(error);
         });
     });
   };
