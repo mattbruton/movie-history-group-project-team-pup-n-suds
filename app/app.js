@@ -69,6 +69,7 @@ app.config(function($routeProvider) {
 app.run(($location) =>{
 
   let watchlistRef = new Firebase("https://team-pup-n-suds-app.firebaseio.com/");
+  watchlistRef.unauth();
 
   watchlistRef.onAuth(authData =>{
     if(!authData){
