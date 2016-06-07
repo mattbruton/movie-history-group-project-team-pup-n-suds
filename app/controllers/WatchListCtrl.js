@@ -1,7 +1,7 @@
 "use strict";
 
-app.controller("WatchListCtrl", function($scope, DataFactory, AuthFactory) {
-
+app.controller("WatchListCtrl", function($scope, $location, DataFactory, AuthFactory) {
+	$scope.title = "";
   $scope.movies = [];
 
   $scope.items = [{
@@ -24,28 +24,37 @@ app.controller("WatchListCtrl", function($scope, DataFactory, AuthFactory) {
     text: '5 Stars'
   }];  
 
-  $scope.displayWatchList = function() {
-    DataFactory.getWatchList().then(function(data) {
-      $scope.movies = data;
-      console.log($scope.movies);
-    });
-  };
+	$scope.displayMovies = function() {
+		if($location.path() === "/watch-list"){
+			DataFactory.getWatchList().then(function(data) {      
+			$scope.movies = data;
+			$scope.title = "Movie Watch List";
+			// console.log($scope.movies);
+			});
+		}else{
+			DataFactory.getWatchedList().then(function(data) {      
+			$scope.movies = data;
+			$scope.title = "Previously Viewed Movies";
+			// console.log($scope.movies);
+			});
+		}
+	};
 
   $scope.rateMovie = function(objId, title, year, poster, imdbid, rating) {
     DataFactory.updateRating(objId, title, year, poster, imdbid, rating).then(function() {
-      $scope.displayWatchList();
+      $scope.displayMovies();
     })
 
   };
 
-  $scope.displayWatchList();
+	$scope.displayMovies();
 
   $scope.removeMovie = function(movieId) {
   	DataFactory.deleteMovie(movieId).then(function(response){
-            $scope.displayWatchList();
+            $scope.displayMovies();
             });
         };
 
   // $scope.removeMovie();
   
-  });
+});
