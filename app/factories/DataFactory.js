@@ -44,9 +44,6 @@ let getWatchedList = function() {
     });
   };
 
-
-
-
   var postNewMovie = function(newMovie) {
     var user = AuthFactory.getUser();
     return $q(function(resolve, reject) {
@@ -57,6 +54,7 @@ let getWatchedList = function() {
             Year: newMovie.Year,
             Poster: newMovie.Poster,
             uid: user.uid,
+            imdbID: newMovie.imdbID,
             id: null,
             isWatched: false,
             Rating: 0
