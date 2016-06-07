@@ -30,6 +30,12 @@
                   </i></div>
                   <h5>{{movie.Title}}</h5>
                   <h5>{{movie.Year}}</h5>
+                  <div class="rating">
+                      <label>Rate this Movie</label>
+                    <select class="browser-default" ng-change="rateMovie(movie.id, movie.Title, movie.Year, movie.Poster, movie.imdbID, selectItem.value)" ng-model="selectItem" ng-options="item as item.text for item in items">
+                    </select>
+                  </div>
+
                   <button class="btn btn-danger" ng-click="removeMovie(movie.id)"id={{movie.id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                </div>
             </li>
