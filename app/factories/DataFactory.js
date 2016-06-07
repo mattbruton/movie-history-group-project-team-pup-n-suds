@@ -68,6 +68,15 @@ let getWatchedList = function() {
     });
   }
 
+  var deleteMovie = function(movieId){
+        return $q(function(resolve, reject){
+            $http
+                .delete(`${firebaseURL}movies/${movieId}.json`)
+                .success(function(objectFromFirebase){
+                    resolve(objectFromFirebase);
+                })
+        })
+    };
 
 
   var postNewMovie = function(newMovie) {
@@ -97,8 +106,13 @@ let getWatchedList = function() {
   return {
     postNewMovie: postNewMovie,
     getWatchList: getWatchList,
+<<<<<<< HEAD
     getWatchedList: getWatchedList,
     updateRating: updateRating
+=======
+    deleteMovie: deleteMovie,
+    getWatchedList: getWatchedList
+>>>>>>> master
   };
 
 });

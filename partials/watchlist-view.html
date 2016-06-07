@@ -3,11 +3,18 @@
       <h1>Watch List</h1>
    </div>
 </div>
+
+<div class="row search-div">
+   <div class="col s4 offset-s4 search-input">
+      <input type="text" placeholder="Search movies..." ng-model="searchMovies">
+   </div>
+</div>
+
 <div class="row">
    <div class="col s10 offset-s1 card-holder">
       <ul>
          <div class="row">
-            <li class="card col s4" ng-repeat="movie in movies">
+            <li class="card col s4" ng-repeat="movie in movies | filter: searchMovies">
                <div class="card-image waves-effect waves-block waves-light col s8 offset-s2">
                   <img class="activator" ng-src={{movie.Poster}} err-src="img/No_Image_Available.gif">
                </div>
@@ -28,6 +35,8 @@
                     <select class="browser-default" ng-change="rateMovie(movie.id, movie.Title, movie.Year, movie.Poster, movie.imdbID, selectItem.value)" ng-model="selectItem" ng-options="item as item.text for item in items">
                     </select>
                   </div>
+
+                  <button class="btn btn-danger" ng-click="removeMovie(movie.id)"id={{movie.id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                </div>
             </li>
          </div>
