@@ -44,7 +44,39 @@ let getWatchedList = function() {
     });
   };
 
+  var updateRating = function(existingMovie, title, year, poster, imdbid, newRating) {
+    var user = AuthFactory.getUser();
+    return $q(function(resolve, reject) {
+      $http.put(
+        `${firebaseURL}movies/${existingMovie}.json`,
+        JSON.stringify({
+            Title: title,
+            Year: year,
+            Poster: poster,
+            uid: user.uid,
+            imdbID: imdbid,
+            id: existingMovie,
+            isWatched: true,
+            Rating: newRating
+          })
+        )
+        .success(
+          function(objectFromFirebase) {
+            resolve(objectFromFirebase);
+          }
+        );
+    });
+  }
 
+  var deleteMovie = function(movieId){
+        return $q(function(resolve, reject){
+            $http
+                .delete(`${firebaseURL}movies/${movieId}.json`)
+                .success(function(objectFromFirebase){
+                    resolve(objectFromFirebase);
+                })
+        })
+    };
 
 
   var postNewMovie = function(newMovie) {
@@ -57,6 +89,7 @@ let getWatchedList = function() {
             Year: newMovie.Year,
             Poster: newMovie.Poster,
             uid: user.uid,
+            imdbID: newMovie.imdbID,
             id: null,
             isWatched: false,
             Rating: 0
@@ -73,6 +106,8 @@ let getWatchedList = function() {
   return {
     postNewMovie: postNewMovie,
     getWatchList: getWatchList,
+    updateRating: updateRating,
+    deleteMovie: deleteMovie,
     getWatchedList: getWatchedList
   };
 
