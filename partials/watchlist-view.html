@@ -23,7 +23,11 @@
                   </i></div>
                   <h5>{{movie.Title}}</h5>
                   <h5>{{movie.Year}}</h5>
-                  <button class="btn" id={{movie.id}}>Rate this Movie</button>
+                  <div class="rating">
+                      <label>Rate this Movie</label>
+                    <select class="browser-default" ng-change="rateMovie(movie.id, movie.Title, movie.Year, movie.Poster, movie.imdbID, selectItem.value)" ng-model="selectItem" ng-options="item as item.text for item in items">
+                    </select>
+                  </div>
                </div>
             </li>
          </div>
