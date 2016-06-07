@@ -1,20 +1,17 @@
 "use strict";
 
-app.controller("WatchListCtrl", function($scope, $routeParams, Search, $location, DataFactory) {
-  $scope.movies = [];
-  $scope.addedmovie = {};
+app.controller("WatchedListCtrl", function($scope, DataFactory, AuthFactory) {
 
-  $scope.addedmovie = $scope.movies.filter(function(item) {
-    return item.id === $routeParams.itemId;
-  })[0];
+  $scope.watched = [];
 
-  $scope.addToWatch = function(movie) {
-    DataFactory.getMovies(movie)
-      .then(function successCallback(response) {
-        console.log(response);
-        $location.url("/watch-list");
-      });
+  $scope.displayWatchedList = function() {
+    DataFactory.getWatchedList().then(function(data) {
+      $scope.watched = data;
+      console.log($scope.watched);
+    });
   };
 
+  
+  $scope.displayWatchedList();
 
 });
