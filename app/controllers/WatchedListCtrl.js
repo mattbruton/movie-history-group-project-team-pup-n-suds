@@ -16,7 +16,7 @@ app.controller("WatchedListCtrl", function($scope, DataFactory, AuthFactory) {
 
   $scope.removeMovie = function(movieId) {
     DataFactory.deleteMovie(movieId).then(function(response){
-            $scope.displayWatchList();
+            $scope.displayWatchedList();
             });
         };
 
