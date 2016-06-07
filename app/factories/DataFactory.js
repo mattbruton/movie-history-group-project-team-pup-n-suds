@@ -106,13 +106,9 @@ let getWatchedList = function() {
   return {
     postNewMovie: postNewMovie,
     getWatchList: getWatchList,
-<<<<<<< HEAD
-    getWatchedList: getWatchedList,
-    updateRating: updateRating
-=======
+    updateRating: updateRating,
     deleteMovie: deleteMovie,
     getWatchedList: getWatchedList
->>>>>>> master
   };
 
 });
