@@ -11,7 +11,7 @@ app.controller("WatchListCtrl", function($scope, DataFactory, AuthFactory) {
     });
   };
 
-  
+
   $scope.displayWatchList();
 
 });
