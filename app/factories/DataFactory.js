@@ -23,6 +23,16 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
     });
   };
 
+  var deleteMovie = function(movieId){
+        return $q(function(resolve, reject){
+            $http
+                .delete(`${firebaseURL}movies/${movieId}.json`)
+                .success(function(objectFromFirebase){
+                    resolve(objectFromFirebase);
+                })
+        })
+    };
+
 
 
 
@@ -51,7 +61,8 @@ app.factory("DataFactory", function($q, $http, firebaseURL, AuthFactory) {
 
   return {
     postNewMovie: postNewMovie,
-    getWatchList: getWatchList
+    getWatchList: getWatchList,
+    deleteMovie: deleteMovie
   };
 
 });

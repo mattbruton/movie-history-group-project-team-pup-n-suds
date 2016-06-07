@@ -23,7 +23,7 @@
                   </i></div>
                   <h5>{{movie.Title}}</h5>
                   <h5>{{movie.Year}}</h5>
-                  <button class="btn" id={{movie.id}}>Rate this Movie</button>
+                  <button class="btn btn-danger" ng-click="removeMovie(movie.id)"id={{movie.id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                </div>
             </li>
          </div>
