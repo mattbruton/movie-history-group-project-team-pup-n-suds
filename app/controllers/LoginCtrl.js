@@ -8,11 +8,12 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
     password: ""
   };
 
-  
+  // console.log($location.path());
 
   if ($location.path() === "/logout") {
     ref.unauth();
     $rootScope.isActive = false;
+    $rootScope.hasContent = false;
   }
 
   $scope.register = () => {
@@ -38,6 +39,7 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
           let movies = [];     
           $scope.movies = data;
           if($scope.movies.length > 0){
+            console.log($rootScope.isActive);
             $location.path("/watch-list");
           }else{
             $location.path("/welcome");
