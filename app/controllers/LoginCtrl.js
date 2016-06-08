@@ -39,11 +39,20 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
           let movies = [];     
           $scope.movies = data;
           if($scope.movies.length > 0){
-            console.log($rootScope.isActive);
+            // console.log($rootScope.isActive);
             $location.path("/watch-list");
           }else{
             $location.path("/welcome");
           };
+          DataFactory.getWatchedList().then(function(data) {
+          let movies = [];     
+          $scope.movies = data;
+          if($scope.movies.length > 0){
+            $rootScope.hasContent = true;
+            $location.path("/watch-list");
+            // $scope.displayMovies();
+          }
+        });
         });
         $scope.$apply();
       });

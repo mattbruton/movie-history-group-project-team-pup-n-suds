@@ -25,60 +25,66 @@ app.controller("WatchListCtrl", function($scope, $location, $rootScope, DataFact
 		text: '5 Stars'
 	}];  
 
-	DataFactory.getWatchList().then(function(data) {
-          let movies = [];     
-          $scope.movies = data;
-          if($scope.movies.length > 0){
-            $rootScope.isActive = true;
-          }else{
-          	$rootScope.isActive = false;
-          };
-        });
 
-	DataFactory.getWatchedList().then(function(data) {
-          let movies = [];     
-          $scope.movies = data;
-          if($scope.movies.length > 0){
-            $rootScope.hasContent = true;
-          }else{
-          	$rootScope.hasContent = false;
-          };
-        });
+
+	
 
 
 	$scope.displayMovies = function() {
 		if($location.path() === "/watch-list"){
 			DataFactory.getWatchList().then(function(data) {
+			$scope.movies = [];
 	     		$scope.isWatched = false;      
 				$scope.movies = data;
 				$scope.title = "Movie Watch List";
-				// console.log($scope.movies);
+				console.log("watch-list", $scope.movies);
+				if($scope.movies.length > 0){
+					$rootScope.isActive = true;
+				}else {
+					$rootScope.isActive = false;
+				};
 			});
 		} if ($location.path() === "/watched"){
 			DataFactory.getWatchedList().then(function(data) { 
+			$scope.movies = [];
 	      		$scope.isWatched = true;     
 				$scope.movies = data;
 				$scope.title = "Previously Viewed Movies";
-				// console.log($scope.movies);
+				console.log("prev-list", $scope.movies);
+				if($scope.movies.length > 0){
+					$rootScope.hasContent = true;
+				}else {
+					$rootScope.hasContent = false;
+				};
 			});
 		};
 	};
-	$scope.displayMovies();
-
+	
   $scope.unwatchMovie = function(movie) {
-    $scope.rateMovie(movie, 0)
+    $scope.rateMovie(movie, 0);
+    $scope.displayMovies();
+    DataFactory.getWatchedList().then(function(data) {
+          let movies = [];     
+          $scope.movies = data;
+          // if($scope.movies.length === 0){
+          //   $rootScope.hasContent = false;
+          //   $location.path("/watch-list");
+            $scope.displayMovies();
+          // }
+        });
     };
   
 
   $scope.rateMovie = function(movie, rating) {
     DataFactory.updateRating(movie, rating).then(function() {
       $scope.displayMovies();
-      $rootScope.hasContent = true;
       DataFactory.getWatchedList().then(function(data) {
           let movies = [];     
           $scope.movies = data;
           if($scope.movies.length === 0){
+      		$rootScope.hasContent = false;
             $location.path("/watch-list");
+            // $scope.displayMovies();
           }
         });
 
@@ -95,4 +101,5 @@ app.controller("WatchListCtrl", function($scope, $location, $rootScope, DataFact
 
   // $scope.removeMovie();
   
+	$scope.displayMovies();
 });
