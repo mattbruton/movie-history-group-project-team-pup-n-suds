@@ -44,18 +44,18 @@ let getWatchedList = function() {
     });
   };
 
-  var updateRating = function(existingMovie, title, year, poster, imdbid, newRating) {
+  var updateRating = function(movie, newRating) {
     var user = AuthFactory.getUser();
     return $q(function(resolve, reject) {
       $http.put(
-        `${firebaseURL}movies/${existingMovie}.json`,
+        `${firebaseURL}movies/${movie.id}.json`,
         JSON.stringify({
-            Title: title,
-            Year: year,
-            Poster: poster,
+            Title: movie.Title,
+            Year: movie.Year,
+            Poster: movie.Poster,
             uid: user.uid,
-            imdbID: imdbid,
-            id: existingMovie,
+            imdbID: movie.imdbID,
+            id: movie.id,
             isWatched: true,
             Rating: newRating
           })

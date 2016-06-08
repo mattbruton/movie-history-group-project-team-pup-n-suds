@@ -3,6 +3,7 @@
 app.controller("WatchListCtrl", function($scope, $location, DataFactory, AuthFactory) {
 	$scope.title = "";
   $scope.movies = [];
+  $scope.isWatched = false;
 
   $scope.items = [{
     value: '1',
@@ -26,13 +27,15 @@ app.controller("WatchListCtrl", function($scope, $location, DataFactory, AuthFac
 
 	$scope.displayMovies = function() {
 		if($location.path() === "/watch-list"){
-			DataFactory.getWatchList().then(function(data) {      
+			DataFactory.getWatchList().then(function(data) {
+      $scope.isWatched = false;      
 			$scope.movies = data;
 			$scope.title = "Movie Watch List";
 			// console.log($scope.movies);
 			});
 		}else{
-			DataFactory.getWatchedList().then(function(data) {      
+			DataFactory.getWatchedList().then(function(data) { 
+      $scope.isWatched = true;     
 			$scope.movies = data;
 			$scope.title = "Previously Viewed Movies";
 			// console.log($scope.movies);
@@ -40,10 +43,15 @@ app.controller("WatchListCtrl", function($scope, $location, DataFactory, AuthFac
 		}
 	};
 
-  $scope.rateMovie = function(objId, title, year, poster, imdbid, rating) {
-    DataFactory.updateRating(objId, title, year, poster, imdbid, rating).then(function() {
+  $scope.unwatchMovie = function(movie) {
+    $scope.rateMovie(movie, 0)
+    };
+  
+
+  $scope.rateMovie = function(movie, rating) {
+    DataFactory.updateRating(movie, rating).then(function() {
       $scope.displayMovies();
-    })
+    });
 
   };
 
