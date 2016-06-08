@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL, AuthFactory) {
+app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL, AuthFactory, DataFactory) {
   let ref = new Firebase(firebaseURL);
 
   $scope.account = {
@@ -8,6 +8,7 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
     password: ""
   };
 
+  
 
   if ($location.path() === "/logout") {
     ref.unauth();
@@ -33,10 +34,17 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
       .authenticate($scope.account)
       .then(() => {
         $rootScope.isActive = true;
-        $location.path("/welcome");
+        DataFactory.getWatchList().then(function(data) {
+          let movies = [];     
+          $scope.movies = data;
+          if($scope.movies.length > 0){
+            $location.path("/watch-list");
+          }else{
+            $location.path("/welcome");
+          };
+        });
         $scope.$apply();
       });
-
   };
 
 });
