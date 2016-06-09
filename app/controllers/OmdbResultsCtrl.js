@@ -8,7 +8,7 @@ app.controller("OmdbResultsCtrl", function($scope, $rootScope, Search, DataFacto
   $scope.addNewMovie = function(movie) {
     DataFactory.postNewMovie(movie)
       .then(function successCallback(response) {
-        $location.url("/welcome");
+        $location.url("/watch-list");
       });
   };
 

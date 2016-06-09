@@ -28,29 +28,33 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
         $scope.login();
       }
     });
+    // $rootScope.isActive = true;
   };
 
   $scope.login = () => {
     AuthFactory
       .authenticate($scope.account)
       .then(() => {
-        $rootScope.isActive = true;
+        // $rootScope.isActive = true;
         DataFactory.getWatchList().then(function(data) {
           let movies = [];     
           $scope.movies = data;
           if($scope.movies.length > 0){
-            // console.log($rootScope.isActive);
+            $rootScope.isActive = true;
             $location.path("/watch-list");
           }else{
             $location.path("/welcome");
+            $rootScope.isActive = false;
           };
           DataFactory.getWatchedList().then(function(data) {
           let movies = [];     
           $scope.movies = data;
           if($scope.movies.length > 0){
             $rootScope.hasContent = true;
-            $location.path("/watch-list");
-            // $scope.displayMovies();
+
+            // $location.path("/watch-list");
+          }else{
+            $rootScope.hasContent = false;
           }
         });
         });
