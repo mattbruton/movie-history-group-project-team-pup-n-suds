@@ -29,20 +29,18 @@ app.controller("WatchListCtrl", function($scope, $location, $rootScope, DataFact
 
 	
 
-
-	$scope.displayMovies = function() {
+	
+	$scope.displayMovies = function() {;
 		if($location.path() === "/watch-list"){
 			DataFactory.getWatchList().then(function(data) {
 			$scope.movies = [];
 	     		$scope.isWatched = false;      
 				$scope.movies = data;
 				$scope.title = "Movie Watch List";
-				console.log("watch-list", $scope.movies);
-				if($scope.movies.length > 0){
-					$rootScope.isActive = true;
-				}else{
-					$rootScope.isActive = false;
-				};
+				if($scope.movies.length === 0){
+					$rootScope.watchListShow = false;
+            		$rootScope.searchLogoutShow = true;
+				}
 			});
 		}
 		if($location.path() === "/watched"){
@@ -51,12 +49,10 @@ app.controller("WatchListCtrl", function($scope, $location, $rootScope, DataFact
 	      		$scope.isWatched = true;     
 				$scope.movies = data;
 				$scope.title = "Previously Viewed Movies";
-				console.log("prev-list", $scope.movies);
-				if($scope.movies.length > 0){
-					$rootScope.hasContent = true;
-				}else{
-					$rootScope.hasContent = false;
-				};
+				if($scope.movies.length === 0){
+					$rootScope.prevListShow = false;
+					$rootScope.searchLogoutShow = true;
+				}
 			});
 		};
 	};
@@ -69,36 +65,76 @@ app.controller("WatchListCtrl", function($scope, $location, $rootScope, DataFact
 
 	$scope.rateMovie = function(movie, rating) {
 		DataFactory.updateRating(movie, rating).then(function() {
-			// $scope.displayMovies();
 			DataFactory.getWatchedList().then(function(data) {
 				let movies = [];     
 				$scope.movies = data;
 				if($scope.movies.length === 0){
-					$rootScope.hasContent = false;
+					$rootScope.prevListShow = false;
 					$location.path("/watch-list");
 				}else{
-					$rootScope.hasContent = true;
+					$rootScope.prevListShow = true;
 				}
-				$scope.displayMovies();
 			});
+			DataFactory.getWatchList().then(function(data) {
+				let movies = [];     
+				$scope.movies = data;
+				if($scope.movies.length === 0){
+					$rootScope.watchListShow = false;
+					$location.path("/watched");
+				}else{
+					$rootScope.watchListShow = true;
+				}
+			});
+
+			$scope.displayMovies();
+
 		});
 	};
+
+
+	$scope.checkForContent = function(){
+		DataFactory.getWatchedList().then(function(data) {
+				let movies = [];     
+				$scope.movies = data;
+				if($scope.movies.length === 0){
+					$scope.emptyPrevList = true;
+				}
+			});
+			DataFactory.getWatchList().then(function(data) {
+				let movies = [];     
+				$scope.movies = data;
+				if($scope.movies.length === 0){
+					$scope.emptyWatchList = true
+				}
+			});
+	}
 
 
 	$scope.removeMovie = function(movieId) {
 		DataFactory.deleteMovie(movieId).then(function(response){
-			$scope.displayMovies();
 			DataFactory.getWatchedList().then(function(data) {
 				let movies = [];     
 				$scope.movies = data;
 				if($scope.movies.length === 0){
-					$rootScope.hasContent = false;
+					$rootScope.prevListShow = false;
 					$location.path("/watch-list");
-				};
+				}
 			});
+			DataFactory.getWatchList().then(function(data) {
+				let movies = [];     
+				$scope.movies = data;
+				if($scope.movies.length === 0){
+					$rootScope.watchListShow = false;
+					$location.path("/watched");
+				}else{
+					// $rootScope.emptyLists = false;
+				}
+			});
+			// $scope.displayMovies();
 		});
-	};
 
+	};
 	$scope.displayMovies();
+
 
 });

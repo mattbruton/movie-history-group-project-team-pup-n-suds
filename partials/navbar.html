@@ -1,13 +1,13 @@
- <div class="navbar-fixed" ng-controller="LoginCtrl">
-    <nav>
-      <div class="nav-wrapper grey darken-1">
-        <a href="" class="brand-logo">Moviething</a>
-        <ul class="right hide-on-med-and-down">
-          <li ng-show="isActive"><a href="/#/welcome">Search oMDb</a></li>
-          <li ng-show="isActive"><a href="/#/watch-list">View Watchlist</a></li>
-          <li ng-show="hasContent"><a href="/#/watched">View Watched Movies</a></li>
-          <li ng-show="isActive"><a href="/#/logout">Logout</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
+<div class="navbar-fixed" ng-controller="LoginCtrl">
+  <nav>
+    <div class="nav-wrapper grey darken-1">
+      <a href="" class="brand-logo">Moviething</a>
+      <ul class="right hide-on-med-and-down">
+        <li ng-show="searchLogoutShow"><a href="/#/welcome">Search oMDb</a></li>
+        <li ng-show="watchListShow"><a href="/#/watch-list">View Watchlist</a></li>
+        <li ng-show="prevListShow"><a href="/#/watched">View Watched Movies</a></li>
+        <li ng-show="searchLogoutShow"><a href="/#/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>

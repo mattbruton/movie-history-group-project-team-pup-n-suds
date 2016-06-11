@@ -12,8 +12,9 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
 
   if ($location.path() === "/logout") {
     ref.unauth();
-    $rootScope.isActive = false;
-    $rootScope.hasContent = false;
+    $rootScope.searchLogoutShow = false;
+    $rootScope.watchListShow = false;
+    $rootScope.prevListShow = false;
   }
 
   $scope.register = () => {
@@ -28,35 +29,37 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
         $scope.login();
       }
     });
-    // $rootScope.isActive = true;
   };
 
   $scope.login = () => {
     AuthFactory
       .authenticate($scope.account)
       .then(() => {
-        // $rootScope.isActive = true;
         DataFactory.getWatchList().then(function(data) {
           let movies = [];     
           $scope.movies = data;
-          if($scope.movies.length > 0){
-            $rootScope.isActive = true;
-            $location.path("/watch-list");
-          }else{
+          if($scope.movies.length === 0){
             $location.path("/welcome");
-            $rootScope.isActive = false;
+            $rootScope.watchListShow = false;
+            $rootScope.searchLogoutShow = true;
+          }else{
+            $location.path("/watch-list");
+            $rootScope.watchListShow = true;
+            $rootScope.searchLogoutShow = true;
           };
           DataFactory.getWatchedList().then(function(data) {
-          let movies = [];     
-          $scope.movies = data;
-          if($scope.movies.length > 0){
-            $rootScope.hasContent = true;
-
-            // $location.path("/watch-list");
-          }else{
-            $rootScope.hasContent = false;
-          }
-        });
+            let movies = [];     
+            $scope.movies = data;
+            if($scope.movies.length === 0){
+              $location.path("/welcome");
+              $rootScope.prevListShow = false;
+              $rootScope.searchLogoutShow = true;
+            }else{
+              $location.path("/watched");
+              $rootScope.prevListShow = true;
+              $rootScope.searchLogoutShow = true;
+            };
+          });
         });
         $scope.$apply();
       });
