@@ -6,7 +6,7 @@ app.factory("Search", function($q, $http, firebaseURL, omdbURL) {
     let movies = [];
 
     return $q(function(resolve, reject) {
-      $http.get(`${omdbURL}s=${title}&y=${year}`)
+      $http.get(`${omdbURL}s=${title}*&y=${year}`)
         .success(function(movieCollection) {
           Object.keys(movieCollection.Search).forEach(function(searchResult) {
             movies.push(movieCollection.Search[searchResult]);
