@@ -25,12 +25,7 @@ app.controller("WatchListCtrl", function($scope, $location, $rootScope, DataFact
 		text: '5 Stars'
 	}];  
 
-
-
-	
-
-	
-	$scope.displayMovies = function() {;
+	$scope.displayMovies = function() {
 		if($location.path() === "/watch-list"){
 			DataFactory.getWatchList().then(function(data) {
 			$scope.movies = [];
