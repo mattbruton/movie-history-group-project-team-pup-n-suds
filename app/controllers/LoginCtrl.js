@@ -1,6 +1,6 @@
   "use strict";
 
-app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL, AuthFactory) {
+app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL, AuthFactory, DataFactory) {
   let ref = new Firebase(firebaseURL);
 
   $scope.account = {
@@ -8,10 +8,13 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
     password: ""
   };
 
+  // console.log($location.path());
 
   if ($location.path() === "/logout") {
     ref.unauth();
-    $rootScope.isActive = false;
+    $rootScope.searchLogoutShow = false;
+    $rootScope.watchListShow = false;
+    $rootScope.prevListShow = false;
   }
 
   $scope.register = () => {
@@ -32,11 +35,34 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
     AuthFactory
       .authenticate($scope.account)
       .then(() => {
-        $rootScope.isActive = true;
-        $location.path("/welcome");
+        DataFactory.getWatchList().then(function(data) {
+          let movies = [];     
+          $scope.movies = data;
+          if($scope.movies.length === 0){
+            $location.path("/welcome");
+            $rootScope.watchListShow = false;
+            $rootScope.searchLogoutShow = true;
+          }else{
+            $location.path("/watch-list");
+            $rootScope.watchListShow = true;
+            $rootScope.searchLogoutShow = true;
+          };
+          DataFactory.getWatchedList().then(function(data) {
+            let movies = [];     
+            $scope.movies = data;
+            if($scope.movies.length === 0){
+              $location.path("/welcome");
+              $rootScope.prevListShow = false;
+              $rootScope.searchLogoutShow = true;
+            }else{
+              $location.path("/watched");
+              $rootScope.prevListShow = true;
+              $rootScope.searchLogoutShow = true;
+            };
+          });
+        });
         $scope.$apply();
       });
-
   };
 
 });
